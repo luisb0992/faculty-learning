@@ -3,18 +3,20 @@
         <div class="row justify-content-center">
             <div class="col-lg-5">
                 <div class="common-heading text-center m-b-40">
-                    <h3>{{__($section->contents['title']) }}</h3>
-                    <p>{{__($section->contents['sub_title']) }}</p>
+                    {{--  <h3>{{__($section->contents['title']) }}</h3>  --}}
+                    <h3>{{ __('last_post_blog') }}</h3>
+                    {{--  <p>{{__($section->contents['sub_title']) }}</p>  --}}
+                    <p>{{ __('sub_last_post_blog') }}</p>
                 </div>
             </div>
         </div>
         <div class="row blog-post-items-v3">
-            @if(count($blogs))
-                @foreach($blogs as $key =>$blog)
+            @if (count($blogs))
+                @foreach ($blogs as $key => $blog)
                     @include('frontend.blogs.component')
                 @endforeach
             @else
-                @include('frontend.not_found',$data=['title'=> 'blog'])
+                @include('frontend.not_found', $data = ['title' => 'blog'])
             @endif
         </div>
     </div>

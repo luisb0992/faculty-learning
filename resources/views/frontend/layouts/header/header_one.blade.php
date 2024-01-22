@@ -18,11 +18,11 @@
                             </a>
                         @else
                             <a href="{{ route('home') }}" class="main-logo">
-                                <img src="{{ isHome() ? (setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.png')) : (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png')) }}"
+                                <img src="{{ isHome() ? (setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.webp')) : (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.webp')) }}"
                                     alt="logo">
                             </a>
                             <a href="{{ route('home') }}" class="sticky-logo">
-                                <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png') }}"
+                                <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.webp') }}"
                                     alt="logo">
                             </a>
                         @endif
@@ -38,7 +38,7 @@
                                     endif;
                                 @endphp
                                 <li class="course-active">
-                                    <a data-bs-toggle="dropdown" href="javascript:void(0)">{{ __('curso') }}</a>
+                                    <a data-bs-toggle="dropdown" href="javascript:void(0)">{{ __('course') }}</a>
                                     <div class="mega-menu dropdown-menu">
                                         <h6 class="border-bottom-soft-white fw-semibold m-b-10 p-b-10 m-l-25 m-r-25">
                                             {{ __('course_by_categories') }}</h6>
@@ -62,7 +62,7 @@
                                 </li>
                             @endif
 
-                            @if (is_array(headerFooterMenu('header_menu', app()->getLocale())))
+                            {{--  @if (is_array(headerFooterMenu('header_menu', app()->getLocale())))
                                 @foreach (headerFooterMenu('header_menu', app()->getLocale()) as $main_menu)
                                     <li
                                         class="{{ url($main_menu['url']) == url()->current() || url($main_menu['url']) == url('/') ? 'active' : '' }}">
@@ -108,7 +108,19 @@
                                         @endif
                                     </li>
                                 @endforeach
-                            @endif
+                            @endif  --}}
+                            <li class="{{ url('/') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url('/') }}" data-bs-toggle="dropdown">{{ __('home') }}</a>
+                            </li>
+                            <li class="{{ url('/blog') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url('/blog') }}" data-bs-toggle="dropdown">{{ __('blog') }}</a>
+                            </li>
+                            <li class="{{ url('/courses') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url('/courses') }}" data-bs-toggle="dropdown">{{ __('courses') }}</a>
+                            </li>
+                            <li class="{{ url('/instructors') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url('/instructors') }}" data-bs-toggle="dropdown">{{ __('instructors') }}</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -257,7 +269,8 @@
                                         <li class="{{ $currency->code == userCurrency() ? 'active' : '' }}"><a
                                                 href="javascript:void(0)" data-name="currency_code"
                                                 data-value="{{ $currency->code }}">{{ $currency->code }} -
-                                                ({{ $currency->name }})</a></li>
+                                                ({{ $currency->name }})
+                                            </a></li>
                                     @endforeach
                                 </ul>
                             </div>

@@ -6,14 +6,11 @@
                 <div class="row justify-content-between">
                     <div class="col-md-4">
                         <div class="widget">
-                            <!-- <h5 class="widget-title">Connect with us!</h5> -->
                             <a href="{{ url('/') }}" class="brand-logo main-logo m-r-25">
                                 @php
-                                    $src = setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.png');
+                                    $src = setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.webp');
                                 @endphp
-                                <img style="max-width: 140px"
-                                     src="{{ $src }}"
-                                     alt="logo">
+                                <img style="max-width: 140px" src="{{ $src }}" alt="logo">
                             </a>
                             <p class="py-2">{{ setting('footer_logo_description') }}</p>
 
@@ -47,22 +44,23 @@
                         </div>
                     </div>
 
-                    @if(setting('show_newsletter'))
+                    @if (setting('show_newsletter'))
                         <div class="col-md-5">
                             <div class="widget newsletter-widget">
-                                <h5 class="widget-title">{{ setting('newsletter_title', app()->getLocale()) }}</h5>
+                                {{--  <h5 class="widget-title">{{ setting('newsletter_title', app()->getLocale()) }}</h5>  --}}
+                                <h5 class="widget-title">{{ __('newsletter_now') }}</h5>
                                 <form action="{{ route('subscribe') }}" method="POST"
-                                      class="footer-subscription form needs-validation ajax_form" novalidate>
+                                    class="footer-subscription form needs-validation ajax_form" novalidate>
                                     <input class="subscription-mail" type="email" name="email"
-                                           placeholder="{{ __('your_email') }}" required>
+                                        placeholder="{{ __('your_email') }}" required>
                                     @csrf
                                     <div class="invalid-feedback">
-                                        {{ __('Please add your email.') }}
+                                        {{ __('please_add_your_email') }}
                                     </div>
                                     <div class="valid-feedback">
-                                        {{ __('Looks good!') }}
+                                        {{ __('looks_good') }}
                                     </div>
-                                    <button type="submit"> {{ __('subscribe') }}
+                                    <button type="submit"> {{ __('subscribe_now') }}
                                     </button>
                                     @include('components.frontend_loading_btn', [
                                         'class' => 'btn sg-btn-primary',
@@ -76,12 +74,14 @@
 
             <div class="row">
 
-                @if (setting('show_useful_link') && is_array(setting('footer_useful_link_menu')) && count(setting('footer_useful_link_menu')) > 0)
+                @if (setting('show_useful_link') &&
+                        is_array(setting('footer_useful_link_menu')) &&
+                        count(setting('footer_useful_link_menu')) > 0)
                     <div class="col-md-3 offset-md-1 col-6 order-2 order-md-1">
                         <div class="widget nav-widget">
                             <h5 class="widget-title">{{ setting('useful_link_title', app()->getLocale()) }}</h5>
                             @php
-                                $useful_link_menu = headerFooterMenu('footer_useful_link_menu', app()->getLocale()) ? : headerFooterMenu('footer_useful_link_menu');
+                                $useful_link_menu = headerFooterMenu('footer_useful_link_menu', app()->getLocale()) ?: headerFooterMenu('footer_useful_link_menu');
                             @endphp
                             <ul>
                                 @foreach ($useful_link_menu as $usefulLink)
@@ -93,12 +93,15 @@
                 @endif
 
 
-                @if (setting('show_resource_link') && is_array(setting('footer_resource_link_menu')) && count(setting('footer_resource_link_menu')) > 0)
+                @if (setting('show_resource_link') &&
+                        is_array(setting('footer_resource_link_menu')) &&
+                        count(setting('footer_resource_link_menu')) > 0)
                     <div class="col-md-3 col-6 order-3 order-md-2">
                         <div class="widget nav-widget">
-                            <h5 class="widget-title">{{ setting('resource_link_title', app()->getLocale()) }}</h5>
+                            {{--  <h5 class="widget-title">{{ setting('resource_link_title', app()->getLocale()) }}</h5>  --}}
+                            <h5 class="widget-title">{{ __('download_the_app') }}</h5>
                             @php
-                                $resource_link_menu = headerFooterMenu('footer_resource_link_menu', app()->getLocale()) ? : headerFooterMenu('footer_resource_link_menu');
+                                $resource_link_menu = headerFooterMenu('footer_resource_link_menu', app()->getLocale()) ?: headerFooterMenu('footer_resource_link_menu');
                             @endphp
                             <ul>
                                 @foreach ($resource_link_menu as $resourceLink)
@@ -110,12 +113,14 @@
                 @endif
 
 
-                @if (setting('show_quick_link') && is_array(setting('footer_quick_link_menu')) && count(setting('footer_quick_link_menu')) > 0)
+                @if (setting('show_quick_link') &&
+                        is_array(setting('footer_quick_link_menu')) &&
+                        count(setting('footer_quick_link_menu')) > 0)
                     <div class="col-md-2 col-6 order-4 order-md-3">
                         <div class="widget nav-widget">
                             <h5 class="widget-title">{{ setting('quick_link_title', app()->getLocale()) }}</h5>
                             @php
-                                $quick_link_menu = headerFooterMenu('footer_quick_link_menu', app()->getLocale()) ? : headerFooterMenu('footer_quick_link_menu');
+                                $quick_link_menu = headerFooterMenu('footer_quick_link_menu', app()->getLocale()) ?: headerFooterMenu('footer_quick_link_menu');
                             @endphp
                             <ul>
                                 @foreach ($quick_link_menu as $quickLink)
@@ -130,14 +135,15 @@
                 @if (setting('show_apps_link') != 0)
                     <div class="col-md-3">
                         <div class="widget download-app-widget">
-                            <h5 class="widget-title">{{ setting('apps_link_title', app()->getLocale()) }}</h5>
-                            <p>{{ setting('apps_link_description', app()->getLocale()) }}</p>
+                            {{--  <h5 class="widget-title">{{ setting('apps_link_title', app()->getLocale()) }}</h5>  --}}
+                            <h5 class="widget-title">{{ __('download_the_app') }}</h5>
+                            <p>{{ __('download_apps_link_description') }}</p>
                             <div class="row gx-3 m-t-15">
                                 @if (setting('play_store_link') != '')
                                     <div class="col-xl-6 col-md-12 col-auto">
                                         <a href="{{ setting('play_store_link') }}">
                                             <img src="{{ static_asset('frontend/img/store/google-play.png') }}"
-                                                 alt="Google Play">
+                                                alt="Google Play">
                                         </a>
                                     </div>
                                 @endif
@@ -146,7 +152,7 @@
                                     <div class="col-xl-6 col-md-12 col-auto">
                                         <a href="{{ setting('app_store_link') }}">
                                             <img src="{{ static_asset('frontend/img/store/app-store.png') }}"
-                                                 alt="App Store">
+                                                alt="App Store">
                                         </a>
                                     </div>
                                 @endif
@@ -154,11 +160,10 @@
                         </div>
                     </div>
                 @endif
-                @if(setting('show_payment_method_banner') == 1)
+                @if (setting('show_payment_method_banner') == 1)
                     <div class="col-12 order-5">
                         <div class="payment-logos text-align-md-end text-center">
-                            <img
-                                src="{{ setting('payment_method_banner') && @is_file_exists(setting('payment_method_banner')['original_image']) ? get_media(setting('payment_method_banner')['original_image']) : get_media('frontend/img/payment-methods/footer-payment.png') }}"
+                            <img src="{{ setting('payment_method_banner') && @is_file_exists(setting('payment_method_banner')['original_image']) ? get_media(setting('payment_method_banner')['original_image']) : get_media('frontend/img/payment-methods/footer-payment.png') }}"
                                 alt="Payment Logos">
                         </div>
                     </div>
@@ -174,7 +179,8 @@
                         <div class="col-lg-auto col-md-5">
                             <div class="copyright-text d-flex align-items-end justify-content-center mt-4">
                                 {{-- <img src="{{ setting('copyright_logo') && @is_file_exists(setting('copyright_logo')['original_image']) ? get_media(setting('copyright_logo')['original_image']) : get_media('frontend/img/logo.png') }}" alt="Footer Logo" class="m-r-25"> --}}
-                                <span>{{ setting('copyright_title', app()->getLocale()) }}</span>
+                                {{--  <span>{{ setting('copyright_title', app()->getLocale()) }}</span>  --}}
+                                <span>{{ __('copyright_web') }}</span>
                             </div>
                         </div>
                     </div>
@@ -193,13 +199,13 @@
 
 @php $lang =  app()->getLocale() @endphp
 @if (
-     ((request()->routeIs('home') && setting('popup_show_in') == 'home_page') ||
-         setting('popup_show_in') == 'all_page') &&
-         setting('site_popup_status') == 1)
+    ((request()->routeIs('home') && setting('popup_show_in') == 'home_page') ||
+        setting('popup_show_in') == 'all_page') &&
+        setting('site_popup_status') == 1)
     <!--====== Window Load Subscription Modal ======-->
     @if (!session()->get('dont_show'))
         <div class="modal window-load-modal fade" id="windowLoadModal" tabindex="-1"
-             aria-labelledby="windowLoadModalLabel" aria-hidden="true">
+            aria-labelledby="windowLoadModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -211,7 +217,7 @@
                                 <div class="modal-thumbnail m-b-md-20">
 
                                     <img class="selected-img"
-                                         src="{{ getFileLink('500x500', setting('popup_image')) }}" alt="favicon">
+                                        src="{{ getFileLink('500x500', setting('popup_image')) }}" alt="favicon">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -219,9 +225,9 @@
                                     <h4>{{ setting('popup_title', $lang) }}</h4>
                                     <p>{{ setting('popup_description', $lang) }}</p>
                                     <form action="{{ route('subscribe') }}" class="footer-subscription ajax_form"
-                                          method="POST">@csrf
+                                        method="POST">@csrf
                                         <input class="subscription-mail" type="email" name="email"
-                                               placeholder="{{ __('email') }}">
+                                            placeholder="{{ __('email') }}">
                                         <div class="nk-block-des text-danger">
                                             <p class="email_error error"></p>
                                         </div>
@@ -252,8 +258,10 @@
                                                 @endif
                                                 @if (setting('youtube_link') != '')
                                                 @endif
-                                                <li><a
-                                                        href="{{ setting('youtube_link') }}">{{ session()->get('dont_show') }}</a>
+                                                <li>
+                                                    <a href="{{ setting('youtube_link') }}">
+                                                        {{ session()->get('dont_show') }}
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -261,7 +269,7 @@
                                             <form class="form-checkbox">
                                                 <div class="form-group">
                                                     <input type="checkbox" id="tnc" value="1"
-                                                           class="form-check-input" name="dont_show_this">
+                                                        class="form-check-input" name="dont_show_this">
                                                     <label for="tnc">{{ __('dont_show_this_again') }} </label>
                                                 </div>
                                             </form>
@@ -283,14 +291,14 @@
             <div class="col-12">
                 <div class="cookiealert-content text-center">
                     <h4>{{ __('What do we use cookies for?') }}</h4>
-                    <p>{{ __('We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. By clicking “Accept,” you agree to our website’s cookie use as described in our') }}
+                    <p>{{ __('cookie_use') }}
                         <a
                             href="#">{{ __('cookie_policy') }}</a>{{ __('You can change your cookie settings at any time ny clicking') }}
                         “<a href="#">{{ __('preferences') }}</a>.”
                     </p>
                     <div class="confirmation-btns d-flex justify-content-center">
                         <button type="button"
-                                class="dont-accept-cookies template-btn">{{ __('don’t_accept') }}</button>
+                            class="dont-accept-cookies template-btn">{{ __('dont_accept') }}</button>
                         <button type="button" class="accept-cookies template-btn">{{ __('accept') }}</button>
                     </div>
                 </div>

@@ -26,5 +26,12 @@ class LanguageSeeder extends Seeder
             'text_direction' => 'rtl',
             'flag'           => 'images/flags/ar.png'
         ]);
+
+        Language::create([
+            'name'           => 'Spanish',
+            'locale'         => 'es',
+            'text_direction' => 'rtl',
+            'flag'           => 'images/flags/es.png'
+        ]);
     }
 }
