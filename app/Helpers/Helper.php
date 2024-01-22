@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-if (! function_exists('curlRequest')) {
+if (!function_exists('curlRequest')) {
     function curlRequest($url, $fields, $method = 'POST', $headers = [], $is_array = false)
     {
         $client   = new \GuzzleHttp\Client(['verify' => false]);
@@ -40,7 +40,7 @@ if (! function_exists('curlRequest')) {
         return json_decode($result, $is_array);
     }
 }
-if (! function_exists('httpRequest')) {
+if (!function_exists('httpRequest')) {
     function httpRequest($url, $fields, $headers = [], $is_form = false, $method = 'POST')
     {
         if ($is_form) {
@@ -52,10 +52,10 @@ if (! function_exists('httpRequest')) {
         return $response->json();
     }
 }
-if (! function_exists('validate_purchase')) {
+if (!function_exists('validate_purchase')) {
     function validate_purchase($code, $data)
     {
-        $script_url    = str_replace('install/process', '', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+        $script_url    = str_replace('install/process', '', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 
         $fields        = [
             'item_id'         => isAppMode() ? '47989504' : '47989504',
@@ -121,7 +121,7 @@ if (! function_exists('validate_purchase')) {
         }
     }
 }
-if (! function_exists('hasPermission')) {
+if (!function_exists('hasPermission')) {
 
     function hasPermission($key_word): bool
     {
@@ -132,7 +132,7 @@ if (! function_exists('hasPermission')) {
         return false;
     }
 }
-if (! function_exists('isDemoMode')) {
+if (!function_exists('isDemoMode')) {
 
     function isDemoMode(): bool
     {
@@ -143,7 +143,7 @@ if (! function_exists('isDemoMode')) {
         return false;
     }
 }
-if (! function_exists('isInstalled')) {
+if (!function_exists('isInstalled')) {
 
     function isInstalled(): bool
     {
@@ -154,12 +154,12 @@ if (! function_exists('isInstalled')) {
         return false;
     }
 }
-if (! function_exists('is_file_exists')) {
+if (!function_exists('is_file_exists')) {
     function is_file_exists($item, $storage = 'local')
     {
-        if (! blank($item) && ! blank($storage)) {
+        if (!blank($item) && !blank($storage)) {
             if ($storage == 'local') {
-                if (file_exists(base_path('public/'.$item))) {
+                if (file_exists(base_path('public/' . $item))) {
                     return true;
                 }
             } elseif ($storage == 'aws_s3') {
@@ -176,15 +176,15 @@ if (! function_exists('is_file_exists')) {
         return false;
     }
 }
-if (! function_exists('get_media')) {
+if (!function_exists('get_media')) {
     function get_media($item, $storage = 'local', $updater = false)
     {
-        if (! blank($item) and ! blank($storage)) {
+        if (!blank($item) and !blank($storage)) {
             if ($storage == 'local') {
                 if ($updater) {
-                    return base_path('public/'.$item);
+                    return base_path('public/' . $item);
                 } else {
-                    return app('url')->asset(isLocalhost().$item);
+                    return app('url')->asset(isLocalhost() . $item);
                 }
             } elseif ($storage == 'aws_s3') {
                 return Storage::disk('s3')->url($item);
@@ -196,25 +196,25 @@ if (! function_exists('get_media')) {
         return false;
     }
 }
-if (! function_exists('static_asset')) {
+if (!function_exists('static_asset')) {
 
     function static_asset($path = null, $secure = null)
     {
         if (strpos(php_sapi_name(), 'cli') !== false || defined('LARAVEL_START_FROM_PUBLIC')) {
             return app('url')->asset($path, $secure);
         } else {
-            return app('url')->asset('public/'.$path, $secure);
+            return app('url')->asset('public/' . $path, $secure);
         }
     }
 }
-if (! function_exists('isLocalhost')) {
+if (!function_exists('isLocalhost')) {
 
     function isLocalhost(): string
     {
-        return ! (str_contains(php_sapi_name(), 'cli') || defined('LARAVEL_START_FROM_PUBLIC')) ? 'public/' : '';
+        return !(str_contains(php_sapi_name(), 'cli') || defined('LARAVEL_START_FROM_PUBLIC')) ? 'public/' : '';
     }
 }
-if (! function_exists('get_price')) {
+if (!function_exists('get_price')) {
 
     function get_price($price, $curr = null): ?string
     {
@@ -222,7 +222,7 @@ if (! function_exists('get_price')) {
     }
 }
 
-if (! function_exists('format_price')) {
+if (!function_exists('format_price')) {
 
     function format_price($price, $curr = null)
     {
@@ -238,23 +238,23 @@ if (! function_exists('format_price')) {
         }
 
         if ($currency_symbol_format == 'amount_symbol') {
-            return $price.get_symbol($curr);
+            return $price . get_symbol($curr);
         } elseif ($currency_symbol_format == 'symbol_amount') {
-            return get_symbol($curr).$price;
+            return get_symbol($curr) . $price;
         } elseif ($currency_symbol_format == 'amount__symbol') {
-            return $price.' '.get_symbol($curr);
+            return $price . ' ' . get_symbol($curr);
         } elseif ($currency_symbol_format == 'symbol__amount') {
-            return get_symbol($curr).' '.$price;
+            return get_symbol($curr) . ' ' . $price;
         }
     }
 }
-if (! function_exists('convert_price')) {
+if (!function_exists('convert_price')) {
 
     function convert_price($price, $curr = null): float|int
     {
         $exchange_rate = 1;
         $currencies    = app('currencies');
-        if (! $curr) {
+        if (!$curr) {
             $curr = setting('default_currency');
         }
         $currency      = $currencies->where('code', $curr)->first();
@@ -265,13 +265,13 @@ if (! function_exists('convert_price')) {
         return floatval($price) * floatval($exchange_rate);
     }
 }
-if (! function_exists('get_symbol')) {
+if (!function_exists('get_symbol')) {
 
     function get_symbol($curr = null)
     {
         $currencies = \app('currencies');
 
-        if (! $curr) {
+        if (!$curr) {
             $curr = setting('default_currency');
         }
 
@@ -285,7 +285,7 @@ if (! function_exists('get_symbol')) {
         return $symbol;
     }
 }
-if (! function_exists('base_price')) {
+if (!function_exists('base_price')) {
 
     function base_price($product)
     {
@@ -301,7 +301,7 @@ if (! function_exists('base_price')) {
         return format_price(convert_price($price));
     }
 }
-if (! function_exists('addon_is_activated')) {
+if (!function_exists('addon_is_activated')) {
     function addon_is_activated($addon_unique_identity)
     {
         $addon = \app('addons')->where('addon_identifier', $addon_unique_identity)->first();
@@ -309,20 +309,20 @@ if (! function_exists('addon_is_activated')) {
         return isset($addon);
     }
 }
-if (! function_exists('fontURL')) {
+if (!function_exists('fontURL')) {
     function fontURL()
     {
         $fonts_url     = static_asset('fonts/poppins/css.css');
         $font_title    = setting('fonts');
         $font_title_sl = preg_replace('/\s+/', '_', strtolower($font_title));
-        if (File::exists(public_path('fonts/'.$font_title_sl.'/css.css'))) {
-            $fonts_url = static_asset('fonts/'.$font_title_sl.'/css.css');
+        if (File::exists(public_path('fonts/' . $font_title_sl . '/css.css'))) {
+            $fonts_url = static_asset('fonts/' . $font_title_sl . '/css.css');
         }
 
         return $fonts_url;
     }
 }
-if (! function_exists('getFileName')) {
+if (!function_exists('getFileName')) {
     function getFileName($file)
     {
         $name = '';
@@ -334,27 +334,27 @@ if (! function_exists('getFileName')) {
         return $name;
     }
 }
-if (! function_exists('envWrite')) {
+if (!function_exists('envWrite')) {
     function envWrite($key, $value)
     {
         try {
             if (EnvEditor::keyExists($key)) {
-                EnvEditor::editKey($key, '"'.trim($value).'"');
+                EnvEditor::editKey($key, '"' . trim($value) . '"');
             } else {
-                EnvEditor::addKey($key, '"'.trim($value).'"');
+                EnvEditor::addKey($key, '"' . trim($value) . '"');
             }
         } catch (Exception $e) {
             dd($e);
         }
     }
 }
-if (! function_exists('nullCheck')) {
+if (!function_exists('nullCheck')) {
     function nullCheck($value)
     {
         return $value ?: '';
     }
 }
-if (! function_exists('languageCheck')) {
+if (!function_exists('languageCheck')) {
     function languageCheck()
     {
         if (cache()->has('locale')) {
@@ -369,10 +369,10 @@ if (! function_exists('languageCheck')) {
     }
 }
 
-if (! function_exists('priceFormatUpdate')) {
+if (!function_exists('priceFormatUpdate')) {
     function priceFormatUpdate($price, $curr, $type = null): float|int
     {
-        if (! $price) {
+        if (!$price) {
             $price = 0;
         }
         $active_currency = \app('currencies')->where('id', $curr)->first();
@@ -384,19 +384,19 @@ if (! function_exists('priceFormatUpdate')) {
         }
     }
 }
-if (! function_exists('arrayCheck')) {
+if (!function_exists('arrayCheck')) {
     function arrayCheck($key, $array): bool
     {
-        return is_array($array) && count($array) > 0 && array_key_exists($key, $array) && ! empty($array[$key]) && $array[$key] != 'null';
+        return is_array($array) && count($array) > 0 && array_key_exists($key, $array) && !empty($array[$key]) && $array[$key] != 'null';
     }
 }
-if (! function_exists('isAppMode')) {
+if (!function_exists('isAppMode')) {
     function isAppMode(): bool
     {
         return config('app.mobile_mode') == 'on';
     }
 }
-if (! function_exists('geoLocale')) {
+if (!function_exists('geoLocale')) {
     function geoLocale()
     {
         try {
@@ -433,7 +433,7 @@ if (! function_exists('geoLocale')) {
         }
     }
 }
-if (! function_exists('currencyList')) {
+if (!function_exists('currencyList')) {
     function currencyList()
     {
         $currency_list = [];
@@ -452,7 +452,7 @@ if (! function_exists('currencyList')) {
         return $currency_list;
     }
 }
-if (! function_exists('jwtUser')) {
+if (!function_exists('jwtUser')) {
     function jwtUser()
     {
         try {
@@ -464,7 +464,7 @@ if (! function_exists('jwtUser')) {
         return $user;
     }
 }
-if (! function_exists('authData')) {
+if (!function_exists('authData')) {
     function authData($user, $token = null): array
     {
         $data = [
@@ -484,31 +484,31 @@ if (! function_exists('authData')) {
         return $data;
     }
 }
-if (! function_exists('getArrayValue')) {
+if (!function_exists('getArrayValue')) {
     function getArrayValue($key, $array, $default = null)
     {
         return arrayCheck($key, $array) ? $array[$key] : $default;
     }
 }
-if (! function_exists('getInputValue')) {
+if (!function_exists('getInputValue')) {
     function getInputValue($value)
     {
         return $value ?: old($value);
     }
 }
-if (! function_exists('get_yrsetting')) {
+if (!function_exists('get_yrsetting')) {
 
     function get_yrsetting($setting_for)
     {
-        return config()->get('lmssetting.'.$setting_for);
+        return config()->get('lmssetting.' . $setting_for);
     }
 }
 
-if (! function_exists('userAvailability')) {
+if (!function_exists('userAvailability')) {
 
     function userAvailability($user): array
     {
-        if (! $user) {
+        if (!$user) {
             return [
                 'status'  => false,
                 'message' => __('user_not_found'),
@@ -526,7 +526,7 @@ if (! function_exists('userAvailability')) {
                 'message' => __('user_not_found'),
                 'code'    => 401,
             ];
-        } elseif (! $user->email_verified_at) {
+        } elseif (!$user->email_verified_at) {
             return [
                 'status'  => false,
                 'message' => __('verify_your_mail_first'),
@@ -553,18 +553,18 @@ if (! function_exists('userAvailability')) {
         ];
     }
 }
-if (! function_exists('setting')) {
+if (!function_exists('setting')) {
     function setting($title, $lang = null)
     {
-        if (! $lang) {
+        if (!$lang) {
             $lang = app()->getLocale();
         }
         try {
             $settings = app('settings');
-            if (! blank($title)) {
+            if (!blank($title)) {
                 if (in_array($title, get_yrsetting('setting_array')) || in_array($title, get_yrsetting('setting_image'))) {
                     $data = $settings->where('title', $title)->first();
-                    if (! blank($data)) {
+                    if (!blank($data)) {
                         return $data->value ? unserialize($data->value) : [];
                     }
                 } else {
@@ -574,7 +574,7 @@ if (! function_exists('setting')) {
                         if (blank($data)) {
                             $data = $settings->where('title', $title)->where('lang', 'en')->first();
 
-                            return ! blank($data) ? $data->value : '';
+                            return !blank($data) ? $data->value : '';
                         }
 
                         return $data->value;
@@ -582,7 +582,7 @@ if (! function_exists('setting')) {
                         $data = $settings->where('title', $title)->first();
                     }
 
-                    return ! blank($data) ? $data->value : '';
+                    return !blank($data) ? $data->value : '';
                 }
             } else {
                 return '';
@@ -594,7 +594,7 @@ if (! function_exists('setting')) {
     }
 }
 
-if (! function_exists('getFileLink')) {
+if (!function_exists('getFileLink')) {
     function getFileLink($size, $array, $offline = null)
     {
         if ($size == 'original_image' && is_array($array) && array_key_exists($size, $array)) {
@@ -604,17 +604,17 @@ if (! function_exists('getFileLink')) {
                 return static_asset('images/default/default-image-320x320.png');
             }
         }
-        if (is_array($array) && array_key_exists('image_'.$size, $array)) {
-            if (@is_file_exists($array['image_'.$size], $array['storage'])) {
-                return get_media($array['image_'.$size], $array['storage']);
+        if (is_array($array) && array_key_exists('image_' . $size, $array)) {
+            if (@is_file_exists($array['image_' . $size], $array['storage'])) {
+                return get_media($array['image_' . $size], $array['storage']);
             }
         }
 
-        return static_asset('images/default/default-image-'.$size.'.png');
+        return static_asset('images/default/default-image-' . $size . '.png');
     }
 }
 
-if (! function_exists('checkEmptyProvider')) {
+if (!function_exists('checkEmptyProvider')) {
     function checkEmptyProvider($check_for)
     {
         foreach (get_yrsetting($check_for) as $title) {
@@ -627,41 +627,41 @@ if (! function_exists('checkEmptyProvider')) {
     }
 }
 
-if (! function_exists('menuActivation')) {
+if (!function_exists('menuActivation')) {
     function menuActivation($urls, $class, $other = null)
     {
-        $check_lang = app()->getLocale() == setting('default_language') ? '' : app()->getLocale().'/';
+        $check_lang = app()->getLocale() == setting('default_language') ? '' : app()->getLocale() . '/';
 
         if (is_array($urls)) {
             foreach ($urls as $url) {
-                if (Request::is($check_lang.$url)) {
+                if (Request::is($check_lang . $url)) {
                     return $class;
                 }
             }
-        } elseif (Request()->is($check_lang.$urls)) {
+        } elseif (Request()->is($check_lang . $urls)) {
             return $class;
         } else {
             return $other;
         }
     }
 }
-if (! function_exists('formatBytes')) {
+if (!function_exists('formatBytes')) {
 
     function formatBytes($size, $precision = 2)
     {
         $base     = log($size, 1024);
         $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-        return round(pow(1024, $base - floor($base)), $precision).' '.$suffixes[floor($base)];
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
     }
 }
-if (! function_exists('EmailTemplate')) {
+if (!function_exists('EmailTemplate')) {
     function EmailTemplate($title)
     {
         return EmailTemplate::where('title', $title)->first();
     }
 }
-if (! function_exists('countryCode')) {
+if (!function_exists('countryCode')) {
     function countryCode($id = null)
     {
         if ($id) {
@@ -675,15 +675,15 @@ if (! function_exists('countryCode')) {
             $code    = @$country->phonecode;
         }
 
-        if (! $code) {
+        if (!$code) {
             $code = '+880';
         }
 
-        return str_contains($code, '+') ? $code : '+'.$code;
+        return str_contains($code, '+') ? $code : '+' . $code;
     }
 }
 
-if (! function_exists('getSlug')) {
+if (!function_exists('getSlug')) {
     function getSlug($table, $name, $column = 'slug', $id = null): string
     {
         $slug  = Str::slug($name);
@@ -691,23 +691,23 @@ if (! function_exists('getSlug')) {
             $query->where('id', '!=', $id);
         })->where($column, $slug)->count();
         if ($count > 0) {
-            $slug = $slug.'-'.strtolower(Str::random(5));
+            $slug = $slug . '-' . strtolower(Str::random(5));
         }
 
         return $slug;
     }
 }
 
-if (! function_exists('google_fonts_list')) {
+if (!function_exists('google_fonts_list')) {
     function google_fonts_list()
     {
-        $path = storage_path().'/json/fonts.json';
+        $path = storage_path() . '/json/fonts.json';
 
         return json_decode(file_get_contents($path), true);
     }
 }
 
-if (! function_exists('css_font_name')) {
+if (!function_exists('css_font_name')) {
     function css_font_name($name)
     {
         $name = trim($name, '');
@@ -717,7 +717,7 @@ if (! function_exists('css_font_name')) {
     }
 }
 
-if (! function_exists('font_link')) {
+if (!function_exists('font_link')) {
     function font_link()
     {
         $url              = '<link rel="preconnect" href="https://fonts.googleapis.com">';
@@ -728,7 +728,7 @@ if (! function_exists('font_link')) {
         $header_font_name = trim($header_font_name, '');
         $header_font_name = ucwords($header_font_name, '_');
         $header_font_name = str_replace('_', '+', $header_font_name);
-        $url .= '<link href="https://fonts.googleapis.com/css2?family='.$header_font_name.':wght@400;500;600;700&display=swap" rel="stylesheet">';
+        $url .= '<link href="https://fonts.googleapis.com/css2?family=' . $header_font_name . ':wght@400;500;600;700&display=swap" rel="stylesheet">';
 
         if (setting('body_font') == setting('header_font')) {
             return $url;
@@ -740,13 +740,13 @@ if (! function_exists('font_link')) {
             $body_font_name = trim($body_font_name, '');
             $body_font_name = ucwords($body_font_name, '_');
             $body_font_name = str_replace('_', '+', $body_font_name);
-            $url .= '<link href="https://fonts.googleapis.com/css2?family='.$body_font_name.':wght@400;500;600;700&display=swap" rel="stylesheet">';
+            $url .= '<link href="https://fonts.googleapis.com/css2?family=' . $body_font_name . ':wght@400;500;600;700&display=swap" rel="stylesheet">';
         }
 
         return $url;
     }
 }
-if (! function_exists('localeRoutePrefix')) {
+if (!function_exists('localeRoutePrefix')) {
     function localeRoutePrefix()
     {
         $current_locale       = false;
@@ -765,7 +765,7 @@ if (! function_exists('localeRoutePrefix')) {
             }
         }
 
-        if (! $current_locale) {
+        if (!$current_locale) {
             $locale = setting('default_language');
         }
 
@@ -781,10 +781,10 @@ if (! function_exists('localeRoutePrefix')) {
         return $locale;
     }
 }
-if (! function_exists('setLanguageRedirect')) {
+if (!function_exists('setLanguageRedirect')) {
     function setLanguageRedirect($language_locale, $current_url = null): array|string
     {
-        if (! $current_url) {
+        if (!$current_url) {
             $current_url = url()->current();
         }
         $locale               = languageCheck();
@@ -814,7 +814,7 @@ if (! function_exists('setLanguageRedirect')) {
         return $reload_url;
     }
 }
-if (! function_exists('systemLanguage')) {
+if (!function_exists('systemLanguage')) {
     function systemLanguage()
     {
         $languages = app('languages');
@@ -823,14 +823,14 @@ if (! function_exists('systemLanguage')) {
     }
 }
 
-if (! function_exists('packageSubscription')) {
+if (!function_exists('packageSubscription')) {
     function packageSubscription($user_id, $package_id)
     {
         return UserSubscription::where('user_id', $user_id)->where('package_solutions_id', $package_id)->get();
     }
 }
 
-if (! function_exists('headerFooterMenu')) {
+if (!function_exists('headerFooterMenu')) {
 
     function headerFooterMenu($title, $lang = 'en')
     {
@@ -838,7 +838,7 @@ if (! function_exists('headerFooterMenu')) {
             $settings = app('settings');
             if (in_array($title, get_yrsetting('setting_array')) || in_array($title, get_yrsetting('setting_by_lang'))) {
                 $data = $settings->where('title', $title)->where('lang', $lang)->first();
-                if (! blank($data)) {
+                if (!blank($data)) {
                     return $data->value ? unserialize($data->value) : [];
                 }
             }
@@ -848,28 +848,28 @@ if (! function_exists('headerFooterMenu')) {
     }
 }
 
-if (! function_exists('payoutMethod')) {
+if (!function_exists('payoutMethod')) {
     function payoutMethod($organization_id, $payout_method)
     {
         return OrganizationPayoutMethod::where('organization_id', $organization_id)->where('payout_method', $payout_method)->first();
     }
 }
 
-if (! function_exists('instructorPayoutMethod')) {
+if (!function_exists('instructorPayoutMethod')) {
     function instructorPayoutMethod($instructor_id, $payout_method)
     {
         return InstructorPayoutMethod::where('instructor_id', $instructor_id)->where('payout_method', $payout_method)->first();
     }
 }
 
-if (! function_exists('organizationPayoutMethod')) {
+if (!function_exists('organizationPayoutMethod')) {
     function organizationPayoutMethod($organization_id, $payout_method)
     {
         return OrganizationPayoutMethod::where('organization_id', $organization_id)->where('payout_method', $payout_method)->first();
     }
 }
 
-if (! function_exists('getPdfFile')) {
+if (!function_exists('getPdfFile')) {
     function getPdfFile($file, $type = null)
     {
         if (is_array($file)) {
@@ -888,7 +888,7 @@ if (! function_exists('getPdfFile')) {
     }
 }
 
-if (! function_exists('isHome')) {
+if (!function_exists('isHome')) {
     function isHome()
     {
         if (request()->path() == '/' || request()->path() == 'home1' || request()->path() == 'home2' || request()->path() == 'home3' || request()->path() == App::getLocale() || request()->path() == setting('default_language')) {
@@ -899,7 +899,7 @@ if (! function_exists('isHome')) {
     }
 }
 
-if (! function_exists('isAuth')) {
+if (!function_exists('isAuth')) {
     function isAuth()
     {
         if (request()->path() == ('sign-in' || 'sign-up')) {
@@ -910,7 +910,7 @@ if (! function_exists('isAuth')) {
     }
 }
 
-if (! function_exists('getRemainingDaysHours')) {
+if (!function_exists('getRemainingDaysHours')) {
     function getRemainingDaysHours($givenDateTime)
     {
         // Convert the given date and time to a Carbon instance
@@ -931,7 +931,7 @@ if (! function_exists('getRemainingDaysHours')) {
     }
 }
 
-if (! function_exists('authOrganizationSlug')) {
+if (!function_exists('authOrganizationSlug')) {
     function authOrganizationSlug()
     {
         if (Auth::check() && Auth::user()->role_id == 5) {
@@ -942,7 +942,7 @@ if (! function_exists('authOrganizationSlug')) {
     }
 }
 
-if (! function_exists('authOrganizationId')) {
+if (!function_exists('authOrganizationId')) {
     function authOrganizationId()
     {
         if (Auth::check() && Auth::user()->role_id == 5) {
@@ -957,23 +957,23 @@ if (! function_exists('authOrganizationId')) {
     }
 }
 
-if (! function_exists('stringMasking')) {
+if (!function_exists('stringMasking')) {
     function stringMasking($string, $pattern, $start_range = null, $end_range = null)
     {
-        if (! $start_range) {
+        if (!$start_range) {
             $start_range = 0;
         }
 
         return isDemoMode() ? Str::mask($string, $pattern, $start_range, $end_range) : $string;
     }
 }
-if (! function_exists('authUser')) {
+if (!function_exists('authUser')) {
     function authUser()
     {
         return auth()->check() ? auth()->user() : jwtUser();
     }
 }
-if (! function_exists('userCurrency')) {
+if (!function_exists('userCurrency')) {
     function userCurrency()
     {
         $currency_id = setting('default_currency');
@@ -986,7 +986,7 @@ if (! function_exists('userCurrency')) {
         return $currency_id;
     }
 }
-if (! function_exists('userLanguage')) {
+if (!function_exists('userLanguage')) {
     function userLanguage()
     {
         $locale = setting('default_language');
@@ -999,7 +999,7 @@ if (! function_exists('userLanguage')) {
         return $locale;
     }
 }
-if (! function_exists('getVideoId')) {
+if (!function_exists('getVideoId')) {
     function getVideoId($provider, $link)
     {
         if ($provider == 'vimeo') {
@@ -1017,5 +1017,15 @@ if (! function_exists('getVideoId')) {
             return $link;
         }
         return '';
+    }
+}
+
+/**
+ * Lenguaje de la app
+ */
+if (!function_exists('lg')) {
+    function lg()
+    {
+        return app()->getLocale() !== 'en' ? app()->getLocale() : '';
     }
 }

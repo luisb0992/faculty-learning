@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
+// use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Site\AuthController;
 use App\Http\Controllers\Site\CartController;
@@ -167,17 +167,19 @@ Route::group(['prefix' => localeRoutePrefix()], function () {
     Route::get('organization-load-course', [OrganizationController::class, 'loadCourse'])->name('organization.course');
 
     /*===================== blog Route ==============================*/
-    Route::get('blog', [BlogController::class, 'showAllBlog'])->name('blog');
-    Route::get('blog/feature', [BlogController::class, 'showAllBlogFeature'])->name('blog.feature');
-    Route::post('filter-blogs', [BlogController::class, 'filterBlog'])->name('filter.blog');
-    Route::get('blog/{slug}', [BlogController::class, 'blogDetails'])->name('blog-details');
+    // Route::get('blog', [BlogController::class, 'showAllBlog'])->name('blog');
+    // Route::get('blog/feature', [BlogController::class, 'showAllBlogFeature'])->name('blog.feature');
+    // Route::post('filter-blogs', [BlogController::class, 'filterBlog'])->name('filter.blog');
+    // Route::get('blog/{slug}', [BlogController::class, 'blogDetails'])->name('blog-details');
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog.comment');
-        Route::get('blog-comments/{id}', [BlogController::class, 'comments'])->name('blog.comments');
-        Route::post('comment-reply', [BlogController::class, 'reply'])->name('blog.comment.reply');
-        Route::get('comment-replies', [BlogController::class, 'replies'])->name('blog.comment.replies');
-    });
+    // Route::group(['middleware' => 'auth'], function () {
+    //     Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog.comment');
+    //     Route::get('blog-comments/{id}', [BlogController::class, 'comments'])->name('blog.comments');
+    //     Route::post('comment-reply', [BlogController::class, 'reply'])->name('blog.comment.reply');
+    //     Route::get('comment-replies', [BlogController::class, 'replies'])->name('blog.comment.replies');
+    // });
+    // blog
+    require __DIR__ . '/blog.php';
 
     //web setting change
     Route::post('update-website-setting', [FrontendController::class, 'UpdateWebsiteSetting'])->name('update.website-setting');
@@ -208,4 +210,4 @@ Route::group(['prefix' => localeRoutePrefix()], function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

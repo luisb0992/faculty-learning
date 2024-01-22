@@ -6,13 +6,13 @@
         <div class="dashboard-logo d-flex justify-content-center align-items-center py-20">
             <a class="logo" href="{{ route('admin.dashboard') }}">
                 <img
-                    src="{{ setting('admin_logo') && @is_file_exists(setting('admin_logo')['original_image']) ? get_media(setting('admin_logo')['original_image']) : get_media('images/default/logo/logo-green-white.png') }}"
-                    alt="Logo">
+                    src="{{ setting('admin_logo') && @is_file_exists(setting('admin_logo')['original_image']) ? get_media(setting('admin_logo')['original_image']) : get_media('images/default/logo/logo-green-white.webp') }}"
+                    alt="Logo" style="max-width: 80px;">
             </a>
             <a class="logo-icon" href="{{ route('admin.dashboard') }}">
                 <img
-                    src="{{ setting('admin_mini_logo') && @is_file_exists(setting('admin_mini_logo')['original_image']) ? get_media(setting('admin_mini_logo')['original_image']) : get_media('images/default/logo/logo-green-mini.png') }}"
-                    alt="Logo">
+                    src="{{ setting('admin_mini_logo') && @is_file_exists(setting('admin_mini_logo')['original_image']) ? get_media(setting('admin_mini_logo')['original_image']) : get_media('images/default/logo/logo-green-mini.webp') }}"
+                    alt="Logo" style="max-width: 80px;">
             </a>
         </div>
         <nav class="side-nav">

@@ -19,11 +19,11 @@
                         @else
                             <a href="{{ route('home') }}" class="main-logo">
                                 <img src="{{ isHome() ? (setting('light_logo') && @is_file_exists(setting('light_logo')['original_image']) ? get_media(setting('light_logo')['original_image']) : get_media('images/default/logo/logo-green-white.webp')) : (setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.webp')) }}"
-                                    alt="logo">
+                                    alt="logo" style="max-width: 80px;">
                             </a>
                             <a href="{{ route('home') }}" class="sticky-logo">
                                 <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.webp') }}"
-                                    alt="logo">
+                                    alt="logo" style="max-width: 80px;">
                             </a>
                         @endif
                     </div>
@@ -109,17 +109,19 @@
                                     </li>
                                 @endforeach
                             @endif  --}}
-                            <li class="{{ url('/') == url()->current() ? 'active' : '' }}">
-                                <a href="{{ url('/') }}" data-bs-toggle="dropdown">{{ __('home') }}</a>
+                            <li class="{{ url(lg() .'/') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url(lg() . '/') }}" data-bs-toggle="dropdown">{{ __('home') }}</a>
                             </li>
-                            <li class="{{ url('/blog') == url()->current() ? 'active' : '' }}">
-                                <a href="{{ url('/blog') }}" data-bs-toggle="dropdown">{{ __('blog') }}</a>
+                            <li class="{{ url(lg() . '/blog') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url(lg() . '/blog') }}" data-bs-toggle="dropdown">{{ __('blog') }}</a>
                             </li>
-                            <li class="{{ url('/courses') == url()->current() ? 'active' : '' }}">
-                                <a href="{{ url('/courses') }}" data-bs-toggle="dropdown">{{ __('courses') }}</a>
+                            <li class="{{ url(lg() . '/courses') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url(lg() . '/courses') }}"
+                                    data-bs-toggle="dropdown">{{ __('courses') }}</a>
                             </li>
-                            <li class="{{ url('/instructors') == url()->current() ? 'active' : '' }}">
-                                <a href="{{ url('/instructors') }}" data-bs-toggle="dropdown">{{ __('instructors') }}</a>
+                            <li class="{{ url(lg() . '/instructors') == url()->current() ? 'active' : '' }}">
+                                <a href="{{ url(lg() . '/instructors') }}"
+                                    data-bs-toggle="dropdown">{{ __('instructors') }}</a>
                             </li>
                         </ul>
                     </nav>
@@ -294,8 +296,8 @@
         <div class="panel-inner">
             <div class="mobile-logo">
                 <a href="{{ url('/') }}">
-                    <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.png') }}"
-                        alt="logo">
+                    <img src="{{ setting('dark_logo') && @is_file_exists(setting('dark_logo')['original_image']) ? get_media(setting('dark_logo')['original_image']) : get_media('images/default/logo/logo-green-black.webp') }}"
+                        alt="logo" style="max-width: 80px;">
                 </a>
             </div>
             <nav class="mobile-menu">
