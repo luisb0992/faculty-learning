@@ -2221,5 +2221,15 @@
 	"add_new_course": "Agregar nuevo curso",
 	"media_images": "Imagenes",
 	"manage_profile": "Administrar perfil",
-	"change_password": "Cambiar contraseña"
+	"change_password": "Cambiar contraseña",
+	"by_clicking_create_account_you_agree_to_the": "Al dar click en el botón CREAR CUENTA aceptas los",
+	"terms_of_service": "Términos de servicio",
+	"subscribe_newsletter": "Suscribirse a voletines",
+	"delete_account": "Eliminar cuenta",
+	"Yes delete this account!": "Si, Eliminar mi cuenta",
+	"Change status": "Cambiar estado",
+	"course_membership": "Membresía",
+	"select_course_membership": "Seleccionar tipo de membresía",
+	"member_1": "member_1",
+	"member_2": "member_2"
 }

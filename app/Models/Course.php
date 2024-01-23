@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Repositories\CourseRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Course extends Model
 {
@@ -14,6 +15,7 @@ class Course extends Model
         'title', 'slug', 'short_description', 'user_id', 'organization_id', 'instructor_ids', 'category_id', 'course_type', 'language_id', 'description', 'is_private', 'video_source', 'video', 'image', 'image_media_id', 'duration',
         'is_downloadable', 'is_free', 'price', 'is_discountable', 'discount_type', 'discount', 'discount_start_at', 'discount_end_at', 'is_featured', 'deleted_at', 'tags', 'level_id', 'total_enrolled', 'subject_id',
         'is_renewable', 'renew_after', 'meta_title', 'meta_keywords', 'meta_description', 'meta_image', 'status', 'is_published', 'total_rating', 'total_lesson', 'capacity', 'class_ends_at',
+        'membership'
     ];
 
     protected $casts    = [
@@ -75,26 +77,26 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function reviews(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function reviews(): MorphMany
     {
         return $this->morphMany(Rating::class, 'commentable')->where('status', 1);
     }
 
-    public function carts(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function carts(): MorphMany
     {
         return $this->morphMany(Cart::class, 'cartable');
     }
 
-    public function wishlists(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function wishlists(): MorphMany
     {
         return $this->morphMany(Wishlist::class, 'wishable');
     }
 
-    public function enrolls(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function enrolls(): MorphMany
     {
         return $this->morphMany(Enroll::class, 'enrollable');
     }
-    public function slider(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function slider(): MorphMany
     {
         return $this->morphMany(Slider::class, 'sliderable');
     }
@@ -130,7 +132,7 @@ class Course extends Model
         $progress      = $this->progresses_sum_progress;
 
         if ($total_lessons > 0) {
-            $complete_percentage = round(($progress / $total_lessons) * 100,2);
+            $complete_percentage = round(($progress / $total_lessons) * 100, 2);
         }
 
         return min($complete_percentage, 100);

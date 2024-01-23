@@ -2270,5 +2270,9 @@
 	"copyright_web": "Copyright @ 2024 All rights reserved to CENCAP.",
 	"cookie_use": "Utilizamos cookies esenciales para que nuestro sitio funcione. Con su consentimiento, también podemos utilizar cookies no esenciales para mejorar la experiencia del usuario y analizar el tráfico del sitio web. Al hacer clic en Aceptar, acepta el uso de cookies de nuestro sitio web como se describe en nuestra.",
 	"dont_accept": "Dont accept.",
-	"newsletter_now": "Susbcribe Now!."
+	"newsletter_now": "Susbcribe Now!.",
+	"course_membership": "Membership",
+	"select_course_membership": "Select type of membership",
+	"member_1": "member_1",
+	"member_2": "member_2"
 }
